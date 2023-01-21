@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class PostController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity createPost(@RequestBody Post post) throws PostNotFoundException{
        try{
            return new ResponseEntity(postService.createPost(post),HttpStatus.OK);
@@ -44,6 +46,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity updatePostById(@PathVariable Integer id, @RequestBody Post post){
         try{
             return new ResponseEntity(postService.updatePostById(id,post),HttpStatus.OK);
@@ -53,6 +56,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity deletePostById(@PathVariable Integer id)throws PostNotFoundException{
         try{
             postService.deletePostById(id);

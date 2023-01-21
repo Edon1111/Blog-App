@@ -1,6 +1,7 @@
 package com.example.blog.post;
 
 
+import com.example.blog.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +32,8 @@ public class Post  {
     private String category;
 
     private Date date;
+
+    @ManyToOne
+    private User user;
 
 }
